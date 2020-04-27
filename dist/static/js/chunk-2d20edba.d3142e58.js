@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d20edba"],{b0c9:function(a,e,n){"use strict";n.r(e);var t=function(){var a=this,e=a.$createElement,n=a._self._c||e;return n("div",[n("me-lottery-turn",{attrs:{awards:a.awards,value:a.value}})],1)},r=[],u={data(){return{awards:[{name:"谢谢惠顾"},{name:"pad"},{name:"华为P30"},{name:"华为mateBook"},{name:"小米手机"},{name:"红米手机"}],value:0}}},l=u,s=n("e90a"),d=Object(s["a"])(l,t,r,!1,null,null,null);e["default"]=d.exports}}]);
-//# sourceMappingURL=chunk-2d20edba.d3142e58.js.map
