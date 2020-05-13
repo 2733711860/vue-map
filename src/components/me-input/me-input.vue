@@ -3,7 +3,7 @@
 		<div class="me_input">
 			<div class="me_input_left">
 				<span v-show="isMust" style="color: red;">*</span>
-				<span>文本</span>
+				<span>{{leftText}}</span>
 			</div>
 			<div class="me_input_right">
 				<input :type="type"
@@ -43,6 +43,10 @@ export default {
 		placeholder: {
 			type: String,
 			default: '请输入文本'
+		},
+		leftText: {
+			type: String,
+			default: '文本'
 		},
 		disabled: { // 禁用输入框状态
 			type: Boolean,

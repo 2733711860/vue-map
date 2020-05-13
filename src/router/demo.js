@@ -192,5 +192,15 @@ export default [
     meta: {
       title: '百度地图'
     }
+  },
+  {
+    path: '/wxMap',
+    name: 'wxMap',
+    component: resolve => {
+      require(['@/views/wxMap/index.vue'], resolve)
+    },
+    meta: {
+      title: '微信地图'
+    }
   }
 ]

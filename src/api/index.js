@@ -25,5 +25,6 @@ export { baseUrl }
 export default {
   // **系统管理**开始
   top_list: baseUrl + '/top/list',
-  mockTest: baseUrl + '/api/mockTest'
+  mockTest: baseUrl + '/api/mockTest',
+  getAppId: 'http://tdev.jxlife.com.cn/wap/api/customerFestival/weixinJS.do', // 获取appId
 }

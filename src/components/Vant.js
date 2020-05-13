@@ -16,7 +16,8 @@ import {
   NavBar,
   CellGroup,
   Image,
-  Sticky
+  Sticky,
+  Search
 } from "vant";
 
 Vue.use(Icon);
@@ -36,3 +37,4 @@ Vue.use(NavBar);
 Vue.use(CellGroup);
 Vue.use(Image);
 Vue.use(Sticky);
+Vue.use(Search);

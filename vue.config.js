@@ -43,6 +43,7 @@ module.exports = {
 
   configureWebpack: {
     externals: {
+    	BMap: "BMap",
       axios: "axios" // 配置使用CDN
     }
   }
