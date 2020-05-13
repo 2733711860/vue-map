@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="me_cell">
+		<div class="me_cell" @click="doclick">
 			<div class="me_cell_left">
 				<me-icon :name="leftIcon"></me-icon>
 				<div class="me_cell_left_con">{{name}}</div>
@@ -32,6 +32,11 @@ export default {
 		leftIcon: {
 			type: String,
 			default: ''
+		}
+	},
+	methods: {
+		doclick () {
+			this.$emit('click')
 		}
 	}
 }

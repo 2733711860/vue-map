@@ -5,6 +5,7 @@
 			<van-search
 		    background="rgba(0, 0, 0, .1)"
 		    placeholder="请输入搜索关键词"
+		    disabled
 		    @click="showPopup=true"
 		  />
 		</div>
@@ -13,10 +14,9 @@
 			<van-search
 		    background="rgba(0, 0, 0, .1)"
 		    placeholder="请输入搜索关键词"
+		    v-model="searchValue"
 		  />
-		  <me-cell name="浦东软件园" value=""></me-cell>
-		  <me-cell name="陆家嘴软件园" value=""></me-cell>
-		  <me-cell name="张江高科" value=""></me-cell>
+		  <me-cell :name="item.title" value="" v-for="(item, index) in resultList" :key="index" @click="goThis(item)"></me-cell>
 		</me-popup>
 	</div>
 </template>
@@ -26,9 +26,10 @@ export default {
 	data () {
 		return {
 			map: '',
-			myValue: '',
 			showPopup: false,
-			local: ''
+			local: '',
+			searchValue: '',
+			resultList: []
 		}
 	},
 	mounted () {
@@ -44,8 +45,23 @@ export default {
     	enableGeolocation: true
     })); // 缩放
 
+		let _this = this
     this.local = new BMap.LocalSearch(this.map, { // 搜索
-			renderOptions:{map: this.map}
+			renderOptions:{map: this.map},
+			onSearchComplete: function(results){
+        if (_this.local.getStatus() == BMAP_STATUS_SUCCESS){
+        	var s = [];
+          for (var i = 0; i < results.getCurrentNumPois(); i ++){
+          	s.push({
+          		title: results.getPoi(i).title,
+          		address: results.getPoi(i).address,
+          		point: results.getPoi(i).point,
+          		detailUrl: results.getPoi(i).detailUrl
+          	})
+          }
+          _this.resultList = s
+        }
+    	}
 		});
 
 		if (this.$route.query.inputvalue && this.$route.query.inputvalue != '') {
@@ -55,7 +71,28 @@ export default {
 			this.getNowPos() // 获取当前位置
 		}
   },
+  watch: {
+  	searchValue () {
+  		this.searchVa()
+  	}
+  },
   methods: {
+  	searchVa () {
+  		this.local.search(this.searchValue);
+  	},
+  	goThis (detail) {
+  		let _this = this
+  		this.map.clearOverlays(); //清除地图上所有覆盖物
+  		this.showPopup = false
+  		this.map.centerAndZoom(detail.point, 18)
+  		var marker = new BMap.Marker(detail.point)
+  		this.map.addOverlay(marker);    //添加标注
+  		marker.addEventListener("click",function(e){
+      	var content ="<p style='font-weight:600'>"+detail.title+"</p><p style='line-height: 20px;'>地址："+detail.address+"</p>";
+        marker.setAnimation(null);
+        _this.openInfo(content,e);
+      });
+  	},
 //	getSearch() { // 自动加载搜索功能
 //		let _this = this
 //		var ac = new BMap.Autocomplete({
